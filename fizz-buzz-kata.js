@@ -8,7 +8,7 @@ var fizzBuzz = function(number) {
 };
 
 var ruleMultiple = function(number, divider, return_value){
-    if (number % divider == 0) {
+    if (number % divider == 0 || number.toString().indexOf(divider.toString()) != -1) {
         return return_value;
     }
     return number;
