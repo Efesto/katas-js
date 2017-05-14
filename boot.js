@@ -1,0 +1,1 @@
+FizzBuzz = require('./src/FizzBuzzKata').FizzBuzz;

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "console": "node -r ./boot.js"
   },
   "devDependencies": {
     "jasmine": "^2.6.0"

@@ -1,5 +1,5 @@
 describe("FizzBuzz", function() {
-    FizzBuzz = require('../src/FizzBuzzKata');
+    FizzBuzz = require('../src/FizzBuzzKata').FizzBuzz;
 
     it("is just number if not divisible by 3, 5 and 15", function () {
         expect(FizzBuzz(2)).toBe(2);
