@@ -1,0 +1,11 @@
+{
+  "name": "katas-js",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jasmine"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0"
+  }
+}
