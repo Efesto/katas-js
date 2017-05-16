@@ -1,26 +1,29 @@
 describe("BowlingGame", ()=>{
-    var Game;
+    let game;
 
     beforeEach(()=>{
-        Game = require('../src/BowlingGameKata').NewGame();
+        let Game = require('../src/BowlingGameKata');
+        game = new Game();
     });
 
     it('has initial score equal to 0', ()=>{
-        expect(Game.score).toBe(0);
+        expect(game.score).toBe(0);
     });
 
-    describe('Roll', ()=>{
-        Subject = ()=> {
-            Game.roll();
+    describe('roll', ()=>{
+        let Subject = ()=> {
+            game.roll();
         };
 
         describe('when 5 pins are hit', ()=>{
-            // mock 5 hit pins
+            beforeEach(()=>{
+                spyOn(game, 'pinsHit').and.returnValue(5);
+            });
 
             it('increases score by 5', ()=>{
                 Subject();
-                expect(Game.score).toBe(5);
+                expect(game.score).toBe(5);
             })
-        })
+        });
     })
 });

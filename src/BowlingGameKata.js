@@ -1,13 +1,16 @@
 // http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
-function NewGame() {
-    game = {};
-    game.roll = ()=>{
-        game.score += 5;
+const random = require('lodash.random');
+
+function Game() {
+    this.pinsHit = ()=> {
+        return random(0, 10)
     };
 
-    game.score = 0;
+    this.roll = ()=> {
+        this.score += this.pinsHit();
+    };
 
-    return game;
+    this.score = 0;
 }
 
-module.exports.NewGame = NewGame;
+module.exports = Game;

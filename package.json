@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "jasmine": "^2.6.0"
+  },
+  "dependencies": {
+    "lodash.random": "^3.2.0"
   }
 }
