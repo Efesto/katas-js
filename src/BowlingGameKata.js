@@ -7,10 +7,19 @@ function Game() {
     };
 
     this.roll = ()=> {
-        this.score += this.pinsHit();
+        let pinsHit = this.pinsHit();
+        this.rollScores.push(pinsHit);
     };
 
-    this.score = 0;
+    this.score = ()=> {
+        return this.rollScores.reduce(add, 0);
+
+        function add(a, b) {
+            return a + b;
+        }
+    };
+
+    this.rollScores = [];
 }
 
 module.exports = Game;
