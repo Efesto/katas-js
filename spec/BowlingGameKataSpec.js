@@ -7,17 +7,17 @@ describe("BowlingGame", ()=>{
     });
 
     describe('roll', ()=>{
-        let Subject = ()=> {
+        let Roll = ()=> {
             game.roll();
         };
 
         describe('when 5 pins are hit', ()=>{
             beforeEach(()=>{
-                spyOn(game, 'pinsHit').and.returnValue(5);
+                game.pinsHit = ()=>{ return 5 };
             });
 
             it('increases score by 5', ()=>{
-                Subject();
+                Roll();
                 expect(game.score()).toBe(5);
             })
         });
@@ -28,16 +28,53 @@ describe("BowlingGame", ()=>{
             });
 
             it('score for current frame is 10 plus 2 next scores', ()=>{
-                Subject();
+                Roll();
 
                 game.pinsHit = ()=>{ return 5 };
-                game.roll();
+                Roll();
 
                 game.pinsHit = ()=>{ return 4 };
-                game.roll();
+                Roll();
 
                 expect(game.score()).toBe(28);
+            });
+
+            describe('and there are no successive rolls', ()=>{
+                it('score for current frame is only strike', ()=>{
+                    Roll();
+                    expect(game.score()).toBe(10);
+                })
             })
         });
+
+        describe('when a spare occurs', ()=>{
+            beforeEach(()=>{
+                game.pinsHit = ()=>{ return 5 };
+            });
+
+            it('score for current frame is 10 plus the next score', ()=>{
+                Roll();
+                Roll();
+                Roll();
+
+                expect(game.score()).toBe(20);
+            });
+
+            describe('and there are no successive rolls', ()=>{
+                it('score for current frame is only the spare', ()=>{
+                    Roll();
+                    Roll();
+                    expect(game.score()).toBe(10);
+                })
+            })
+        });
+    });
+
+    describe('pinsHit', ()=>{
+        it('returns random pins between 0 and previous pins hit', ()=>{
+
+            game.roll();
+            // expect('random').toHaveBeenCalledWith(0,10);
+        })
     })
 });
