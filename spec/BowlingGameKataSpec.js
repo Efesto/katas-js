@@ -1,3 +1,5 @@
+"use strict";
+
 describe("BowlingGame", () => {
     let game;
 

@@ -1,3 +1,5 @@
+"use strict";
+
 // http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
 const random = require('lodash.random');
 
