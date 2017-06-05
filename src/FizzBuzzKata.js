@@ -1,3 +1,5 @@
+"use strict";
+
 //http://codingdojo.org/cgi-bin/index.pl?KataFizzBuzz
 
 function FizzBuzz(number) {
