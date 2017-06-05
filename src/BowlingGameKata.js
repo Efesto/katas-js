@@ -2,51 +2,69 @@
 const random = require('lodash.random');
 
 function Game() {
-	this.pinsHit = () => {
-		return random(0, 10);
-	};
+    const maxPins = 10;
+    let lastRollInFrame = false;
 
-	this.roll = () => {
-		let pinsHit = this.pinsHit();
-		this.rollScores.push(pinsHit);
-	};
+    this.pinsHit = () => {
+        return this.random(0, this.standingPins());
+    };
 
-	this.score = () => {
-		let score = 0;
-		let rScoreIndex = 0;
-		let lastRollInFrame = false;
+    this.standingPins = () => {
+        if (lastRollInFrame) {
+            let lastScore = this.pinsHitAtRoll[this.pinsHitAtRoll.length - 1];
+            return maxPins - lastScore;
+        }
 
-		this.rollScores.forEach((rScore) => {
-			score += rScore;
+        return maxPins;
+    };
 
-			if (rScore === 10) {
-				score += this.scoreAtRoll(rScoreIndex + 1);
-				score += this.scoreAtRoll(rScoreIndex + 2);
-			} else {
-				if (lastRollInFrame) {
-					if ((rScore + this.scoreAtRoll(rScoreIndex - 1)) === 10) {
-						score += this.scoreAtRoll(rScoreIndex + 1);
-					}
-				}
-				lastRollInFrame = !lastRollInFrame;
-			}
-			rScoreIndex += 1;
-		}
+    this.random = (min, max) => {
+        return random(min, max)
+    };
+
+    this.roll = () => {
+        let pinsHit = this.pinsHit();
+        lastRollInFrame = !(pinsHit === maxPins || lastRollInFrame);
+
+        this.pinsHitAtRoll.push(pinsHit);
+    };
+
+    this.score = () => {
+        let score = 0;
+        let rScoreIndex = 0;
+        let lastRollInFrame = false;
+
+        this.pinsHitAtRoll.forEach((rScore) => {
+                score += rScore;
+
+                if (rScore === 10) {
+                    score += this.scoreAtRoll(rScoreIndex + 1);
+                    score += this.scoreAtRoll(rScoreIndex + 2);
+                } else {
+                    if (lastRollInFrame) {
+                        if ((rScore + this.scoreAtRoll(rScoreIndex - 1)) === 10) {
+                            score += this.scoreAtRoll(rScoreIndex + 1);
+                        }
+                    }
+                    lastRollInFrame = !lastRollInFrame;
+                }
+                rScoreIndex += 1;
+            }
         );
 
-		return score;
-	};
+        return score;
+    };
 
-	this.scoreAtRoll = (rollIndex) => {
-		let scoreAtRoll = this.rollScores[rollIndex];
-		if (!scoreAtRoll) {
+    this.scoreAtRoll = (rollIndex) => {
+        let scoreAtRoll = this.pinsHitAtRoll[rollIndex];
+        if (!scoreAtRoll) {
             scoreAtRoll = 0;
         }
 
-		return scoreAtRoll;
-	};
+        return scoreAtRoll;
+    };
 
-	this.rollScores = [];
+    this.pinsHitAtRoll = [];
 }
 
 module.exports = Game;
