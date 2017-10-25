@@ -1,4 +1,4 @@
-const StringCalculator = require('../src/StringCalculatorKata');
+import StringCalculator from '../src/StringCalculatorKata';
 
 describe('#sum', () => {
   let instance;

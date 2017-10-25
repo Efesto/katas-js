@@ -12,4 +12,4 @@ class StringCalculator {
   }
 }
 
-module.exports = StringCalculator;
+export default StringCalculator;
